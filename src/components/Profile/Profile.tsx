@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, Dimensions, Image, Modal, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 
 import { SetStateAction, useState } from 'react';
-import { Entypo, Octicons } from '@expo/vector-icons';
+import { Entypo, FontAwesome, Octicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -71,7 +71,12 @@ export default function ProfileComponent(props : any) {
             paddingTop: 15,
             marginBottom: 5,
             }}>
-            <Image style={ styles.image} source={require('../../../assets/museum.jpg')} />
+            <View style={[ styles.image,  styles.shadow,
+                { height: 100, width: 100, alignItems: 'center', justifyContent: 'center', 
+                borderRadius: 50, padding: 5, shadowColor: 'gray'}]}>
+                <FontAwesome name="user" size={90} color="gray" />
+            </View>
+            {/* <Image style={ styles.image} source={require('../../../assets/museum.jpg')} /> */}
             <View style={{marginLeft: 5, justifyContent: 'center'}}>
                 <Text>Cameron Williamson</Text>
                 <Text>(219) 555-0114</Text>

@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { EventComponent, HorizontalImageWithTextCardComponent } from '.';
+// import { EventComponent, HorizontalImageWithTextCardComponent } from '.';
 import { EventList } from '../data'
+import EventComponent from './Event/Event';
 
 interface PropsType{
   title: string;

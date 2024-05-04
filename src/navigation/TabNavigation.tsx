@@ -52,7 +52,7 @@ export default function TabNavigation() {
     return (  
         <Tab.Navigator screenOptions={screenOptions}>      
             <Tab.Screen 
-            name='Home' 
+            name='HomeTab' 
             component={HomeScreenNavigator}
             options={{
                 tabBarIcon:(focused)=> TabBarIcon(focused.focused,1,'Home'),

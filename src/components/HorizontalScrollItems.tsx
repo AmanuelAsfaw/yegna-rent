@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, ScrollView, StyleSheet, Text, Button, View, TouchableOpacity } from 'react-native';
-import { ImageWithTextCardComponent } from '.';
+// import { ImageWithTextCardComponent } from '.';
 import data from './home.util'
 import Museum from './Museum/Museum';
 import Park from './Park/Park';
+import ImageWithTextCardComponent from './ImageWithTextCard';
 
 interface PropsType{
   title: string;

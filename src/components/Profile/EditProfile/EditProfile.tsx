@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, FlatList, Image, Linking, ScrollView, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { Ref, SetStateAction, useState } from 'react';
-import { EvilIcons, Fontisto, Octicons } from '@expo/vector-icons';
+import { EvilIcons, FontAwesome, Fontisto, Octicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -52,7 +52,12 @@ export default function EditProfileComponent() {
             <ScrollView style={{width: Dimensions.get('screen').width/1.1}}>
                 <View style={{alignItems: 'center', marginBottom: 10}}>
                     <View style={{ justifyContent: 'center', alignItems: 'center'}}>
-                        <Image style={ styles.image} source={require('../../../../assets/museum.jpg')} />
+                        <View style={[ styles.image,  styles.shadow,
+                            { height: 150, width: 150, alignItems: 'center', justifyContent: 'center', 
+                            borderRadius: 150, padding: 10, shadowColor: 'gray'}]}>
+                            <FontAwesome name="user" size={120} color="gray" />
+                        </View>
+                        {/* <Image style={ styles.image} source={require('../../../../assets/museum.jpg')} /> */}
                         <TouchableOpacity style={styles.floatButton} onPress={() => console.log('')}>
                             <AntDesign name="camera" size={24} color="white" />
                             <Text style={{color: 'white', marginLeft: 7}}>change</Text>
@@ -84,6 +89,8 @@ export default function EditProfileComponent() {
                     <TextInput
                         placeholder='(219) 555-0114'
                         // value={searchText}
+                        textContentType='telephoneNumber'
+                        keyboardType='numeric'
                         style={[styles.searchBarInput, styles.shadow, {width: Dimensions.get('screen').width/1.1 - 20,}]}
                         onChangeText={(text) => setName(text)}
                         >

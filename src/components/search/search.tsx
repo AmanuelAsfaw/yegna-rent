@@ -24,6 +24,11 @@ export default function SearchComponent() {
         {name: 'Toyota glanza', image: require('../../../assets/car/toyotaglanza.jpg')},
     ]
     const car_body_type_list = ['Allsss', 'Hatchbacksssssssss', 'compact SUV', 'SUsssssssV','Hatchbacksssssssss', 'compact SUV', 'SUsssssssV','Hatchbacksssssssss', 'compact SUV', 'SUsssssssV', 'sedan', 'MPV', 'Luxury']
+    const [car_body_type_list_status, setCarBodyTypeStatus] = useState(
+        car_body_type_list.map(e => {
+            return false
+        }))
+
     console.log(`../../../assets/museum.jpg`);
     console.log(Math.ceil(['All', 'Hatchback', 'compact SUV', 'SUV', 'sedan', 'MPV', 'Luxury'].length / 3));
     
@@ -62,10 +67,12 @@ export default function SearchComponent() {
             <Text style={{marginLeft: 10, fontWeight: '600', marginTop: 10}}>Car Body Type</Text>
             <View style={{paddingBottom: 20}}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 20, paddingLeft: 10}}>
-                {car_body_type_list.map((item) => {
-                    return (<View style={[styles.shadow, {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]}>
-                        <Text style={{color: 'gray'}}>{item}</Text>
-                    </View>)
+                {car_body_type_list.map((item, index) => {
+                    return (<TouchableOpacity style={[styles.shadow,
+                        car_body_type_list_status[index] ? styles.selectedItem: {},
+                    {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]} onPress={()=> selectItemHandler(index)}>
+                        <Text style={{color: car_body_type_list_status[index]?'green':'gray', fontWeight: '500' }}>{item}</Text>
+                    </TouchableOpacity>)
                 })}
                 </View>
             </View>
@@ -76,10 +83,12 @@ export default function SearchComponent() {
             <Text style={{marginLeft: 10, fontWeight: '600', marginTop: 10}}>Price</Text>
             <View style={{paddingBottom: 20}}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 20, paddingLeft: 10}}>
-                {car_body_type_list.map((item) => {
-                    return (<View style={[styles.shadow, {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]}>
-                        <Text style={{color: 'gray'}}>{item}</Text>
-                    </View>)
+                {car_body_type_list.map((item, index) => {
+                    return (<TouchableOpacity style={[styles.shadow,
+                        car_body_type_list_status[index] ? styles.selectedItem: {},
+                    {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]} onPress={()=> selectItemHandler(index)}>
+                        <Text style={{color: car_body_type_list_status[index]?'green':'gray', fontWeight: '500' }}>{item}</Text>
+                    </TouchableOpacity>)
                 })}
                 </View>
             </View>
@@ -90,14 +99,21 @@ export default function SearchComponent() {
             <Text style={{marginLeft: 10, fontWeight: '600', marginTop: 10}}>Seating capacity</Text>
             <View style={{paddingBottom: 20}}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 20, paddingLeft: 10}}>
-                {car_body_type_list.map((item) => {
-                    return (<View style={[styles.shadow, {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]}>
-                        <Text style={{color: 'gray'}}>{item}</Text>
-                    </View>)
+                {car_body_type_list.map((item, index) => {
+                    return (<TouchableOpacity style={[styles.shadow,
+                        car_body_type_list_status[index] ? styles.selectedItem: {},
+                    {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]} onPress={()=> selectItemHandler(index)}>
+                        <Text style={{color: car_body_type_list_status[index]?'green':'gray', fontWeight: '500' }}>{item}</Text>
+                    </TouchableOpacity>)
                 })}
                 </View>
             </View>
         </>)
+    }
+    const selectItemHandler = (index: number) => {
+        const list_ = [...car_body_type_list_status]
+        list_[index] = !list_[index]
+        setCarBodyTypeStatus(list_)
     }
   return (
     <View style={styles.container}>
@@ -147,18 +163,21 @@ export default function SearchComponent() {
         
         {recent_list.map((item)=>{
             return (
-            <View style={{flexDirection: 'row', paddingTop: 10, paddingLeft: 15, justifyContent: 'flex-start', alignContent: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', paddingTop: 10, paddingLeft: 15, justifyContent: 'flex-start', alignContent: 'center'}}>
                 <Image style={{width: 60, height: 40, resizeMode: 'contain'}} source={item.image}/>
                 <Text style={{color: 'gray', marginLeft: 10, justifyContent: 'center', alignContent: 'center'}}>{item.name}</Text>
-            </View>)
+            </TouchableOpacity>)
         })}
         <Text style={{marginLeft: 10, fontWeight: '600', marginTop: 10}}>Car Body Type</Text>
         <ScrollView style={{paddingBottom: 20}}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 20, paddingLeft: 10}}>
-            {car_body_type_list.map((item) => {
-                return (<View style={[styles.shadow, {padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10}]}>
-                    <Text style={{color: 'gray'}}>{item}</Text>
-                </View>)
+            {car_body_type_list.map((item,index) => {
+                return (<TouchableOpacity style={[styles.shadow,
+                    car_body_type_list_status[index] ? styles.selectedItem: {},
+                    ,{
+                    padding: 10, borderRadius: 5, marginRight: 10, marginTop: 10 }]} onPress={()=> selectItemHandler(index)}>
+                    <Text style={{color: car_body_type_list_status[index]?'green':'gray', fontWeight: '500'}}>{item}</Text>
+                </TouchableOpacity>)
             })}
             </View>
         </ScrollView>
@@ -239,6 +258,10 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: 'white',
     marginVertical: 1.5,
+  },
+  selectedItem: {
+    borderWidth: 1.5,
+    borderColor: 'green',                    
   }
 
 });

@@ -7,7 +7,7 @@ interface PropsType {
   image: any;
 }
 
-export default function App({title, image}: PropsType) {
+export default function ImageWithTextCardComponent({title, image}: PropsType) {
   console.log(image);
   
   return (

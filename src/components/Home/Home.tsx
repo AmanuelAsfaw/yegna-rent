@@ -12,8 +12,10 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Dropdown, DropdownRef, Text as TextMagnus } from "react-native-magnus";
 import React from 'react';
 import { CarList } from '../../data';
+import { CarInterface } from '../../data/car.data';
 
-export default function HomeComponent() {
+export default function HomeComponent(props : any) {
+    const { navigation }: { navigation: any }= props
     const [isEnabled, setIsEnabled] = useState(true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const [cars_list, setCarsList] = useState(CarList.map((item)=>{
@@ -35,6 +37,14 @@ export default function HomeComponent() {
         setCarsList(fav_list)
         
     }
+    
+    const navigateToDetail = (car: CarInterface) => {
+        console.log('navigateToDetail');
+        console.log(car);
+        console.log(navigation);
+        navigation.navigate('CarDetail', {car})
+    }
+  
     return (
         <View style={styles.container}>     
         
@@ -56,20 +66,21 @@ export default function HomeComponent() {
                     value={isEnabled}
                 />
             </View>
-            <View style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingHorizontal: 10, 
-                }}>
-                <FlatList numColumns={2} data={cars_list} renderItem={(item)=>{
-                    return(
-                        <View style={[styles.shadow,{width: 150, marginLeft: 10, marginBottom:7, padding: 5, borderRadius: 8, position: 'relative'}]}>
-                            <TouchableOpacity style={styles.button} onPress={() => onPressFavorite(item.item.id)}>
-                                <AntDesign name={item.item.liked ?'hearto': 'heart'} size={24} color={item.item.liked ?'green': 'green'}/>
+            {
+                cars_list.length > 0 && [...Array(Math.ceil(cars_list.length/2)).keys()].map((item,index)=>{
+                    return (
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingHorizontal: 10, 
+                        }}>
+                        <TouchableOpacity key={'car_key'+cars_list[index*2].id} onPress={()=> {navigateToDetail(cars_list[index*2])}} style={[styles.shadow,{width: 150, marginLeft: 10, marginBottom:7, padding: 5, borderRadius: 8, position: 'relative'}]}>
+                            <TouchableOpacity style={styles.button} onPress={() => onPressFavorite(cars_list[index*2].id)}>
+                                <AntDesign name={cars_list[index*2].liked ?'hearto': 'heart'} size={24} color={cars_list[index*2].liked ?'green': 'green'}/>
                             </TouchableOpacity>
-                            <Image style={{width: 140, height: 100}} source={item.item.image}/>
-                            <Text style={{ fontWeight: '500'}}>{item.item.name}</Text>
+                            <Image style={{width: 140, height: 100}} source={cars_list[index*2].image}/>
+                            <Text style={{ fontWeight: '500'}}>{cars_list[index*2].name}-{cars_list[index*2].id}</Text>
                             <View style={{flexDirection: 'row'}}>
                                 <AntDesign name="star" size={12} color="#ffa534" />
                                 <AntDesign name="star" size={12} color="#ffa534" />
@@ -82,10 +93,30 @@ export default function HomeComponent() {
                                 <Text style={{color: 'green', fontWeight: '500'}}>$220</Text>
                                 <Text style={{ fontWeight: '500' }}>/days</Text>
                             </View>
-                        </View>
-                    )
-                }}/>
-            </View>
+                        </TouchableOpacity>
+                        { cars_list.length/2 - 1 >= index && (<TouchableOpacity key={'car_key'+cars_list[index*2+1].id} onPress={()=> {navigateToDetail(cars_list[index*2+1])}} style={[styles.shadow,{width: 150, marginLeft: 10, marginBottom:7, padding: 5, borderRadius: 8, position: 'relative'}]}>
+                            <TouchableOpacity style={styles.button} onPress={() => onPressFavorite(cars_list[index*2+1].id)}>
+                                <AntDesign name={cars_list[index*2+1].liked ?'hearto': 'heart'} size={24} color={cars_list[index*2+1].liked ?'green': 'green'}/>
+                            </TouchableOpacity>
+                            <Image style={{width: 140, height: 100}} source={cars_list[index*2+1].image}/>
+                            <Text style={{ fontWeight: '500'}}>{cars_list[index*2+1].name}-{cars_list[index*2+1].id}</Text>
+                            <View style={{flexDirection: 'row'}}>
+                                <AntDesign name="star" size={12} color="#ffa534" />
+                                <AntDesign name="star" size={12} color="#ffa534" />
+                                <AntDesign name="star" size={12} color="#ffa534" />
+                                <AntDesign name="star" size={12} color="#ffa534" />
+                                <AntDesign name="star" size={12} color="#ffa534" />
+                            </View>
+                            <Text style={{color: 'gray', fontWeight: '400'}}>5 seater</Text>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{color: 'green', fontWeight: '500'}}>$220</Text>
+                                <Text style={{ fontWeight: '500' }}>/days</Text>
+                            </View>
+                        </TouchableOpacity>)}
+
+                    </View>)
+                })
+            }
         </ScrollView>   
             
         <StatusBar style="auto"/>

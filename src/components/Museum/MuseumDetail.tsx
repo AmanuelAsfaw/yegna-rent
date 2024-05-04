@@ -3,7 +3,6 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { MuseumInterface } from '../../data/museum.data';
 import { EvilIcons, Fontisto } from '@expo/vector-icons';
 
-// import PanoramaView from "@lightbase/react-native-panorama-view";
 // import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 import { WebView } from 'react-native-webview';
 // import { PanoramaView } from 'react-native-360';

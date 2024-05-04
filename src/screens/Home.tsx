@@ -17,7 +17,7 @@ export default function HomeScreen(props:  any) {
   }
   
   return (
-    <HomeComponent/>
+    <HomeComponent {...props} navigation={props.navigation}/>
   );
 }
 

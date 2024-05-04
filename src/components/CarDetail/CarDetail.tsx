@@ -54,17 +54,18 @@ export default function CarComponent(props : any) {
         navigation.navigate('CarDetail', {car})
     }
 
-    const VisibleItem = (props: { data: any; }) => {
-        const { data } = props;
-        console.log(data.item);
+    const VisibleItem = ({data }: {data: any}) => {
+        console.log('item');
+        console.log(data);
+        console.log(typeof data);
         
         return (
-            <TouchableOpacity style={styles.rowFront} onPress={() => navigateToDetail(data.item)}>
+            <TouchableOpacity style={styles.rowFront} onPress={() => navigateToDetail(data)}>
                 <View style={styles.rowFrontVisible}>
                     <View style={{display: 'flex', flexDirection: 'row'}}>
-                        <Image style={styles.image} source={data.item.image}/>
+                        <Image style={styles.image} source={data.image}/>
                         <View style={{marginLeft: 10}}>
-                            <Text numberOfLines={2} style={{fontWeight: 'bold', width:  Dimensions.get('screen').width/1.1 - 150}}>{data.item.title}</Text>
+                            <Text numberOfLines={2} style={{fontWeight: 'bold', width:  Dimensions.get('screen').width/1.1 - 150}}>{data.title}</Text>
                             <View style={{flexDirection: 'row'}}>
                             <AntDesign name="star" size={17} color="#ffa534" />
                             <AntDesign name="star" size={17} color="#ffa534" />
@@ -100,8 +101,9 @@ export default function CarComponent(props : any) {
             { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
             ]}
         /> */}
-        <View style={{flex: 1, backgroundColor: 'red', width: Dimensions.get('screen').width/1.1}}>
-            <Image style={[styles.image, {maxWidth: Dimensions.get('screen').width, height: 'auto'}]} source={car.image}/></View>
+        <View style={{flex: 1, alignItems: 'center', width: Dimensions.get('screen').width}}>
+            <Image style={{width: Dimensions.get('screen').width/1.005, height: 300, resizeMode: 'contain'}} source={car.image}/>
+        </View>
         <View style={{flexDirection: 'row', margin: 10 }}>
             <View style={{flex: 2}}>
                 <Text style={{fontWeight: '600'}}>{car.name}</Text>
@@ -259,14 +261,17 @@ export default function CarComponent(props : any) {
                 </View>
             </View>
             <Text style={{fontWeight: '700', fontSize: 18, marginLeft: 10, marginVertical: 10}}>Recommended</Text>
-            { listData.length > 0 && (
-                
-                <View>
-                    <FlatList
-                        data={listData}
-                        renderItem={(item) => renderItem(item, null)}
-                        />
-                </View>)}
+            { listData.length > 0 && 
+                // (<View>
+                //     <FlatList
+                //         data={listData}
+                //         renderItem={(item) => renderItem(item, null)}
+                //         />
+                // </View>)
+                (
+                    listData.map((item)=> renderItem(item, null))
+                )
+                }
     </ScrollView>
   );
 }
